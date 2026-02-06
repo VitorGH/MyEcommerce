@@ -1,0 +1,43 @@
+@page
+@model MyEcommerce.Pages.IndexModel
+@{
+    ViewData["Title"] = "Loja";
+}
+
+<h1 class="mb-4">Nossos Produtos</h1>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var produto in Model.Products)
+    {
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@produto.Name</h5>
+                    <p class="card-text">@produto.Description</p>
+                    <p class="card-text">
+                        <strong class="text-success">R$ @produto.Price.ToString("N2")</strong>
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted">Em estoque: @produto.Amount</small>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <form method="post" asp-page-handler="AddToCart">
+                        <input type="hidden" name="productId" value="@produto.Id" />
+                        <button type="submit" class="btn btn-primary w-100" 
+                                @(produto.Amount <= 0 ? "disabled" : "")>
+                            <i class="bi bi-cart-plus"></i> Adicionar ao Carrinho
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Products.Any())
+{
+    <div class="alert alert-info">
+        Nenhum produto disponível no momento.
+    </div>
+}
