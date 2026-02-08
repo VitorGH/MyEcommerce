@@ -1,8 +1,35 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model IEnumerable<MyEcommerce.Models.Product>
+@{
+    ViewData["Title"] = "Loja";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="mb-4">Nossos Produtos</h1>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var product in Model)
+    {
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">@product.Description</p>
+                    <p class="card-text">
+                        <strong class="text-success">R$ @product.Price.ToString("N2")</strong>
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted">Em estoque: @product.Amount</small>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <form method="post" asp-controller="Home" asp-action="AddToCart">
+                        <input type="hidden" name="productId" value="@product.Id" />
+                        <button type="submit" class="btn btn-primary w-100"
+                                @(product.Amount <= 0 ? "disabled" : "")>
+                            Adicionar ao Carrinho
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
 </div>
