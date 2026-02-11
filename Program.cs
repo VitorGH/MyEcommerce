@@ -53,7 +53,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.UseSession();
+
 
 if (app.Environment.IsDevelopment())
 {
@@ -67,7 +67,8 @@ else
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
+app.UseAuthentication();
+app.UseSession();
 app.UseAuthorization();
 
 app.MapStaticAssets();

@@ -16,17 +16,14 @@ public class HomeController : Controller
         _context = context;
     }
 
-    private List<Product> ProductsCache = new List<Product>();
-
     public async Task<IActionResult> Index()
     {
         var products = await _context.Products.ToListAsync();
-        ProductsCache = products;
         return View(products);
     }
 
     [HttpPost]
-    public IActionResult AddToCart(int productId)
+    public async Task<IActionResult> AddToCart(int productId)
     {
         if (!User.Identity?.IsAuthenticated ?? true)
         {
@@ -42,8 +39,8 @@ public class HomeController : Controller
             new List<CartItem>()
             : JsonSerializer.Deserialize<List<CartItem>>(cart) ?? [];
 
-        var product = _context.Products.Find(productId);
-        
+        var product = await _context.Products.FindAsync(productId);
+
         if (product != null) {
             
             var existingItem = cartItems.FirstOrDefault(c => c.ProductId == productId);

@@ -21,17 +21,17 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var produto in Model)
+        @foreach (var product in Model)
         {
             <tr>
-                <td>@produto.Id</td>
-                <td>@produto.Name</td>
-                <td>@produto.Description</td>
-                <td>R$ @produto.Price.ToString("N2")</td>
-                <td>@produto.Amount</td>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>R$ @product.Price.ToString("N2")</td>
+                <td>@product.Amount</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@produto.Id" class="btn btn-sm btn-warning">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@produto.Id" class="btn btn-sm btn-danger">Excluir</a>
+                    <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-sm btn-danger">Excluir</a>
                 </td>
             </tr>
         }
