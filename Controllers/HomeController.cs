@@ -60,6 +60,7 @@ public class HomeController : Controller
                 });
             }
 
+            TempData["Notification"] = $"{product.Name} adicionado ao carrinho!";
             HttpContext.Session.SetString("Cart", JsonSerializer.Serialize(cartItems));
         }
 
