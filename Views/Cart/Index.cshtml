@@ -49,7 +49,9 @@ else
         <span id="endereco"></span>
     </div>
     <div>
-        <button>Finalizar Compra</button>
+        <form method="post" asp-controller="Checkout" asp-action="CreateSession">
+            <button type="submit" class="btn btn-success">Finalizar Compra</button>
+        </form>
         <button>Limpar Carrinho</button>
     </div>
 }
